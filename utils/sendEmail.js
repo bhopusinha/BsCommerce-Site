@@ -3,16 +3,16 @@ const nodemailer=require('nodemailer');
 const sendEmail=async(option)=>{
    
     const transporter = nodemailer.createTransport({
-        host: 'smtp.ethereal.email',
-        port: 587,
+        host: process.env.SMTP_HOST,
+        port: process.env.SMTP_PORT,
         auth: {
-            user: 'jake.mayert@ethereal.email',
-            pass: 'Wd9kktWb3fZ2K19T1F'
+            user: process.env.SMTP_MAIL,
+            pass: process.env.SMTP_PASSWORD
         }
     });
 
     const mailoption={
-        from:'jake.mayert@ethereal.email',
+        from:process.env.SMTP_MAIL,
         to:option.email,
         subject:option.subject,
         text:option.message
