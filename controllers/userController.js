@@ -9,10 +9,14 @@ const cloudinary = require('cloudinary');
 // register
 exports.userRegister = catchAsyncerror(
     async (req, res, next) => {
-        const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
-            folder: "avatars",
-            width: 150,
-            crop: "scale"
+        const myCloud = await cloudinary.v2.uploader.upload_large(req.body.avatar, {
+            folder: "products",
+            upload_preset: "myCloud",
+            chunk_size : 6000000,
+            width: 400,
+            height: 450,
+            quality: 100,
+            crop: "scale",
         })
         const { name, email, password } = req.body;
         const user = await User.create({
@@ -188,10 +192,14 @@ exports.userUpdate = catchAsyncerror(async (req, res, next) => {
         await cloudinary.v2.uploader.destroy(imageId);
     }
 
-    const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+    const myCloud = await cloudinary.v2.uploader.upload_large(req.body.avatar, {
         folder: "avatars",
-        width: 150,
-        crop: "scale"
+            upload_preset: "myCloud",
+            chunk_size : 6000000,
+            width: 400,
+            height: 450,
+            quality: 100,
+            crop: "scale",
     });
 
     const newUpdate = {
